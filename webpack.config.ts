@@ -5,9 +5,13 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 import NodePolyfillPlugin from "node-polyfill-webpack-plugin"
 import webpack from "webpack"
 
-const config: (env: NodeJS.ProcessEnv) => webpack.Configuration = _ => ({
+type Argv = {
+  mode?: webpack.Configuration["mode"]
+}
+
+const config: (env: NodeJS.ProcessEnv, argv: Argv) => webpack.Configuration = (_, argv) => ({
   entry: "./src/index.tsx",
-  mode: "development",
+  mode: argv.mode || "development",
   module: {
     rules: [
       {
